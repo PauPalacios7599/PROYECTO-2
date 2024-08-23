@@ -1,0 +1,376 @@
+:root {
+  --main-bg-color: #f7f7f7;
+  --main-text-color: #dec363;
+  --main-font-size: 16px;
+  --card-bg-color: #fefefe;
+  --card-border-color: #ddd;
+  --card-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px;
+  --card-font-size: 1em;
+  --button-bg-color: #fffd00;
+  --button-hover-bg-color: #e5e500;
+  --button-text-color: #000;
+  --brand-color: #666;
+  --product-name-color: #000;
+  --price-color: #000;
+  --max-img-width: 100%;
+  --header-height: 350px;
+  --nav-padding: 1em;
+  --font-increase: 0.15;
+}
+
+body {
+  position: relative;
+  font-family: Arial, sans-serif;
+  background-color: var(--main-bg-color);
+  margin: 0;
+  padding: 20px;
+  font-size: calc(var(--main-font-size) * (1 + var(--font-increase)));
+}
+
+header {
+  background-image: url('https://www.canyon.com/dw/image/v2/BCML_PRD/on/demandware.static/-/Library-Sites-canyon-shared/default/dwfe612fcc/images/plp/gravel-bikes/World-canyon-gravel-my23-01.jpg?sw=1920');
+  width: 100%;
+  height: var(--header-height);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+h1 {
+  color: var(--main-text-color);
+  font-size: calc(var(--main-font-size) * (1 + var(--font-increase)));
+}
+
+.introduccion p {
+  color: var(--main-text-color);
+  font-size: calc(var(--main-font-size) * (1 + var(--font-increase)) * 1.25);
+}
+
+nav.segmentos ul,
+nav.footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav.segmentos li,
+nav.footer li {
+  margin-right: 15px;
+}
+
+nav.segmentos a,
+nav.footer a {
+  text-decoration: none;
+  color: #333;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: calc(var(--main-font-size) * (1 + var(--font-increase)));
+}
+
+nav.segmentos a:hover,
+nav.footer a:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: var(--card-bg-color);
+  padding: 15px;
+  border: 1px solid var(--card-border-color);
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 300px;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  border-radius: 10px;
+}
+
+.card img {
+  max-width: var(--max-img-width);
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.card-info {
+  padding: 0;
+}
+
+.card .brand {
+  color: var(--brand-color);
+  font-size: calc(
+    var(--card-font-size) * (1 + var(--font-increase))
+  ); /* Aumento del 15% */
+  margin-bottom: 5px;
+}
+
+.card .product-name {
+  font-size: calc(
+    var(--card-font-size) * (1 + var(--font-increase)) * 1.1
+  ); /* Aumento del 15% */
+  margin-bottom: 5px;
+  color: var(--product-name-color);
+}
+
+.card .price {
+  font-size: calc(
+    var(--card-font-size) * (1 + var(--font-increase)) * 1.2
+  ); /* Aumento del 15% */
+  color: var(--price-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card a.card-button {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: calc(
+    var(--main-font-size) * (1 + var(--font-increase))
+  ); /* Aumento del 15% */
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  border: 1px solid #ccc;
+}
+
+.card a.card-button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: calc(1.5em * (1 + var(--font-increase)));
+  }
+
+  .introduccion p {
+    font-size: calc(1em * (1 + var(--font-increase)));
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .card h3 {
+    font-size: calc(1.25em * (1 + var(--font-increase)));
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: calc(0.9em * (1 + var(--font-increase)));
+    margin-bottom: 10px;
+  }
+
+  .card a.card-button {
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: calc(1.2em * (1 + var(--font-increase)));
+  }
+
+  .introduccion p {
+    font-size: calc(0.9em * (1 + var(--font-increase)));
+  }
+
+  nav.segmentos ul,
+  nav.footer ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav.segmentos li,
+  nav.footer li {
+    margin: 0.5em 0;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .card h3 {
+    font-size: calc(1.1em * (1 + var(--font-increase)));
+    margin-bottom: 5px;
+  }
+
+  .card p {
+    font-size: calc(0.85em * (1 + var(--font-increase)));
+    margin-bottom: 8px;
+  }
+
+  .card a.card-button {
+    padding: 5px 8px;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+}
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  position: absolute;
+  right: 0;
+  top: 100px;
+  padding: 20px;
+}
+
+.grid-container {
+  flex: 3 1 800px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+.opciones-derecha {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.ordenar-boton {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.ordenar-boton:hover {
+  background-color: #e5e500;
+}
+
+.ordenar-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.ordenar-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ordenar-menu li:hover {
+  background-color: #ddd;
+}
+
+.opciones-derecha.active .ordenar-menu {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .opciones-derecha {
+    justify-content: center;
+  }
+}
+
+.filtrar-boton {
+  background-color: #fffffd;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.filtrar-boton:hover {
+  background-color: #e5e500;
+}
+
+.filtrar-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.filtrar-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filtrar-menu li:hover {
+  background-color: #ddd;
+}
+
+.opciones-derecha.active .ordenar-menu {
+  display: block;
+}
+
+.opciones-derecha.active .filtrar-menu {
+  display: block;
+}
