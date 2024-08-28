@@ -2,86 +2,98 @@ const productos = [
   {
     id: 1,
     brand: 'Canyon',
-    name: 'Canyon Grizl CF SL 8',
-    price: 2999.99,
-    image: 'path/to/image1.jpg'
+    name: 'Canyon Grail CF SLX 8',
+    price: 5599,
+    image: './assets/imagenes/canyon8.webp',
+    link: 'https://www.canyon.com/es-es/bicicletas-gravel/performance/grail/cf-slx/grail-cf-slx-8-di2/3793.html?dwvar_3793_pv_rahmenfarbe=R120_P01'
   },
   {
     id: 2,
     brand: 'Trek',
-    name: 'Trek Checkpoint SL 6',
-    price: 3799.99,
-    image: 'path/to/image2.jpg'
+    name: 'Trek Checkpoint SLR 6 AXS',
+    price: 7799,
+    image: './assets/Imagenes/trek.webp',
+    link: 'https://www.trekbikes.com/es/es_ES/bicicletas/bicicletas-de-carretera/bicicletas-de-gravel/checkpoint/checkpoint-slr/checkpoint-slr-6-axs/p/35293/?colorCode=yellow_bluedark'
   },
   {
     id: 3,
     brand: 'Megamo',
     name: 'Megamo Silk Grx DI2 12S',
     price: 5299,
-    image: 'path/to/image3.jpg'
+    image: './Assets/Imagenes/Megamo Silk grx di2.png',
+    link: 'https://www.megamo.com/es/bicicletas/gravel/silk/silk-grx-di2-12s-(24)'
   },
   {
     id: 4,
     brand: 'Specialized',
     name: 'Specialized Diverge Expert Carbon',
     price: 6300,
-    image: 'path/to/image4.jpg'
+    image: './Assets/Imagenes/specialized diverge expert carbon.webp',
+    link: 'https://www.specialized.com/es/es/diverge-expert-carbon/p/221370?color=367650-221370'
   },
   {
     id: 5,
     brand: 'Pinarello',
     name: 'Pinarello Grevil F',
     price: 8280,
-    image: 'path/to/image5.jpg'
+    image: './Assets/Imagenes/Pinarello.jpg',
+    link: 'https://www.pinarello.es/bici-2022/b301-iceland-black/'
   },
   {
     id: 6,
     brand: 'BMC',
-    name: 'BMC Kaius 01 three',
+    name: 'BMC Kaius 01 THREE',
     price: 5999,
-    image: 'path/to/image6.jpg'
+    image: './Assets/Imagenes/bmc.webp',
+    link: 'https://es.bmc-switzerland.com/es/collections/kaius-01-gravel-bikes/products/kaius-01-three-bikes-bmc-24-10624-002'
   },
   {
     id: 7,
     brand: 'Orbea',
     name: 'Orbea Terra M20',
     price: 5799,
-    image: 'path/to/image7.jpg'
+    image: './assets/imagenes/orbea.jpg',
+    link: 'https://www.orbea.com/es-es/bicicletas/carretera/terra/cat/terra-m20iteam'
   },
   {
     id: 8,
     brand: 'Ridley',
     name: 'Ridley Invenio',
     price: 4999,
-    image: 'path/to/image8.jpg'
+    image: './assets/imagenes/ridley.jpeg',
+    link: 'https://www.ridley-bikes.com/es_ES/bikes/SBIKAFRID168'
   },
   {
     id: 9,
     brand: 'Wilier',
     name: 'Wilier Jaroon MY2024',
     price: 2000,
-    image: 'path/to/image9.jpg'
+    image: './Assets/Imagenes/wilier.webp',
+    link: 'https://www.wilier.com/es/bicicletas/gravel/jaroon-alu-my2024?color=j26-green-grey-1'
   },
   {
     id: 10,
     brand: 'BH',
-    name: 'BH Grevil X',
+    name: 'BH Gravel X',
     price: 3500,
-    image: 'path/to/image10.jpg'
+    image: './Assets/Imagenes/BH.jpg',
+    link: 'https://www.bhbikes.com/es_ES/bicicletas/carretera/aventura-y-gravel/gravelx-carbon-5-0at-lg505?c=roo'
   },
   {
     id: 11,
     brand: 'Colnago',
-    name: 'Colnago c68',
+    name: 'Colnago C68',
     price: 7701,
-    image: 'path/to/image11.jpg'
+    image: './Assets/Imagenes/Colnago.webp',
+    link: 'https://www.colnago.com/es-es/premium-bikes/c68-gravel-bike'
   },
   {
     id: 12,
     brand: 'Bianchi',
     name: 'Bianchi Arcadex',
-    price: 5299,
-    image: 'path/to/image12.jpg'
+    price: 4349,
+    image: './Assets/Imagenes/Bianchi.webp',
+    link: 'https://www.bianchistore.es/product/arcadex-ekar-13s/'
   }
 ]
 
@@ -104,12 +116,14 @@ function pintarProductos(productosFiltrados) {
       <h3>${producto.name}</h3>
       <img src="${producto.image}" alt="${producto.name}" />
       <p>${producto.price.toFixed(2)}€</p>
-      <a href="#" class="card-button">COMPRAR</a>
+      <a href="${producto.link}" class="card-button">COMPRAR</a>
     `
 
     container.appendChild(card)
   })
 }
+
+document.addEventListener('DOMContentLoaded', () => pintarProductos(productos))
 
 // Función para filtrar productos por marca
 function filtrarProductos(marca) {
