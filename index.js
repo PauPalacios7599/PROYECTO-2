@@ -1,37 +1,157 @@
-document.querySelector('.ordenar-boton').addEventListener('click', function () {
-  const filtrarMenu = document.querySelector('.filtrar-menu')
-  if (filtrarMenu.style.display === 'block') {
-    filtrarMenu.style.display = 'none'
+const productos = [
+  {
+    id: 1,
+    brand: 'Canyon',
+    name: 'Canyon Grizl CF SL 8',
+    price: 2999.99,
+    image: 'path/to/image1.jpg'
+  },
+  {
+    id: 2,
+    brand: 'Trek',
+    name: 'Trek Checkpoint SL 6',
+    price: 3799.99,
+    image: 'path/to/image2.jpg'
+  },
+  {
+    id: 3,
+    brand: 'Megamo',
+    name: 'Megamo Silk Grx DI2 12S',
+    price: 5299,
+    image: 'path/to/image3.jpg'
+  },
+  {
+    id: 4,
+    brand: 'Specialized',
+    name: 'Specialized Diverge Expert Carbon',
+    price: 6300,
+    image: 'path/to/image4.jpg'
+  },
+  {
+    id: 5,
+    brand: 'Pinarello',
+    name: 'Pinarello Grevil F',
+    price: 8280,
+    image: 'path/to/image5.jpg'
+  },
+  {
+    id: 6,
+    brand: 'BMC',
+    name: 'BMC Kaius 01 three',
+    price: 5999,
+    image: 'path/to/image6.jpg'
+  },
+  {
+    id: 7,
+    brand: 'Orbea',
+    name: 'Orbea Terra M20',
+    price: 5799,
+    image: 'path/to/image7.jpg'
+  },
+  {
+    id: 8,
+    brand: 'Ridley',
+    name: 'Ridley Invenio',
+    price: 4999,
+    image: 'path/to/image8.jpg'
+  },
+  {
+    id: 9,
+    brand: 'Wilier',
+    name: 'Wilier Jaroon MY2024',
+    price: 2000,
+    image: 'path/to/image9.jpg'
+  },
+  {
+    id: 10,
+    brand: 'BH',
+    name: 'BH Grevil X',
+    price: 3500,
+    image: 'path/to/image10.jpg'
+  },
+  {
+    id: 11,
+    brand: 'Colnago',
+    name: 'Colnago c68',
+    price: 7701,
+    image: 'path/to/image11.jpg'
+  },
+  {
+    id: 12,
+    brand: 'Bianchi',
+    name: 'Bianchi Arcadex',
+    price: 5299,
+    image: 'path/to/image12.jpg'
+  }
+]
+
+// Función para renderizar productos en el contenedor
+function pintarProductos(productosFiltrados) {
+  const container = document.querySelector('.grid-container')
+  container.innerHTML = '' // Limpia el contenedor actual
+
+  if (productosFiltrados.length === 0) {
+    container.innerHTML = '<p>No hay productos que mostrar.</p>' // Mensaje en caso de que no haya productos
   }
 
-  const ordenarMenu = document.querySelector('.ordenar-menu')
-  ordenarMenu.style.display =
-    ordenarMenu.style.display === 'block' ? 'none' : 'block'
-})
+  productosFiltrados.forEach((producto) => {
+    const card = document.createElement('article')
+    card.className = 'card'
+    card.setAttribute('data-price', producto.price)
+    card.setAttribute('data-brand', producto.brand)
 
-document.querySelector('.filtrar-boton').addEventListener('click', function () {
-  const ordenarMenu = document.querySelector('.ordenar-menu')
-  if (ordenarMenu.style.display === 'block') {
-    ordenarMenu.style.display = 'none'
+    card.innerHTML = `
+      <h3>${producto.name}</h3>
+      <img src="${producto.image}" alt="${producto.name}" />
+      <p>${producto.price.toFixed(2)}€</p>
+      <a href="#" class="card-button">COMPRAR</a>
+    `
+
+    container.appendChild(card)
+  })
+}
+
+// Función para filtrar productos por marca
+function filtrarProductos(marca) {
+  return productos.filter((producto) => producto.brand === marca)
+}
+
+// Función para filtrar productos por rango de precio
+function filtrarPorPrecio(rango) {
+  if (rango === '0-2500') {
+    return productos.filter(
+      (producto) => producto.price >= 0 && producto.price <= 2500
+    )
+  } else if (rango === '2500-5000') {
+    return productos.filter(
+      (producto) => producto.price > 2500 && producto.price <= 5000
+    )
+  } else if (rango === '5000-7500') {
+    return productos.filter(
+      (producto) => producto.price > 5000 && producto.price <= 7500
+    )
+  } else if (rango === '7500+') {
+    return productos.filter((producto) => producto.price > 7500)
+  }
+  return []
+}
+
+// Función para aplicar filtros
+function aplicarFiltros(marca, rangoPrecio) {
+  let productosFiltrados = productos
+
+  if (marca && marca !== 'todas') {
+    productosFiltrados = filtrarProductos(marca)
   }
 
-  const filtrarMenu = document.querySelector('.filtrar-menu')
-  filtrarMenu.style.display =
-    filtrarMenu.style.display === 'block' ? 'none' : 'block'
-})
+  if (rangoPrecio) {
+    productosFiltrados = filtrarPorPrecio(rangoPrecio)
+  }
 
-document
-  .querySelector('.ordenar-menor-mayor')
-  .addEventListener('click', function () {
-    ordenarCards('asc')
-  })
+  pintarProductos(productosFiltrados) // Asegúrate de que esta línea esté presente
+}
 
-document
-  .querySelector('.ordenar-mayor-menor')
-  .addEventListener('click', function () {
-    ordenarCards('desc')
-  })
-
+// Función para ordenar las tarjetas
 function ordenarCards(orden) {
   const container = document.querySelector('.grid-container')
   const cards = Array.from(container.querySelectorAll('.card'))
@@ -43,85 +163,77 @@ function ordenarCards(orden) {
     return orden === 'asc' ? precioA - precioB : precioB - precioA
   })
 
+  // Reinsertar las tarjetas ordenadas en el contenedor
   cards.forEach((card) => container.appendChild(card))
 }
 
-document.querySelector('.filtrar-todas').addEventListener('click', function () {
-  filtrarCards('todas')
+// Alterna la visibilidad del menú de ordenar
+document.querySelector('.ordenar-boton').addEventListener('click', function () {
+  const filtrarMenu = document.querySelector('.filtrar-menu')
+  const ordenarMenu = document.querySelector('.ordenar-menu')
+
+  if (ordenarMenu.style.display === 'block') {
+    ordenarMenu.style.display = 'none'
+  } else {
+    ordenarMenu.style.display = 'block'
+    filtrarMenu.style.display = 'none' // Oculta el menú de filtros
+  }
 })
 
-document
-  .querySelector('.filtrar-canyon')
-  .addEventListener('click', function () {
-    filtrarCards('Canyon')
-  })
+// Alterna la visibilidad del menú de filtros
+document.querySelector('.filtrar-boton').addEventListener('click', function () {
+  const ordenarMenu = document.querySelector('.ordenar-menu')
+  const filtrarMenu = document.querySelector('.filtrar-menu')
 
-document.querySelector('.filtrar-trek').addEventListener('click', function () {
-  filtrarCards('Trek')
+  if (filtrarMenu.style.display === 'block') {
+    filtrarMenu.style.display = 'none'
+  } else {
+    filtrarMenu.style.display = 'block'
+    ordenarMenu.style.display = 'none' // Oculta el menú de ordenar
+  }
 })
 
+// Ordenar de menor a mayor
 document
-  .querySelector('.filtrar-megamo')
+  .querySelector('.ordenar-menor-mayor')
   .addEventListener('click', function () {
-    filtrarCards('Megamo')
+    ordenarCards('asc')
   })
 
+// Ordenar de mayor a menor
 document
-  .querySelector('.filtrar-specialized')
+  .querySelector('.ordenar-mayor-menor')
   .addEventListener('click', function () {
-    filtrarCards('Specialized')
+    ordenarCards('desc')
   })
 
-document
-  .querySelector('.filtrar-pinarello')
-  .addEventListener('click', function () {
-    filtrarCards('Pinarello')
-  })
+// Añadir eventos de filtrado en los elementos de la lista de filtros
+document.querySelectorAll('.filtrar-menu li').forEach((li) => {
+  li.addEventListener('click', function () {
+    const marca = this.getAttribute('data-brand')
+    const rangoPrecio = this.getAttribute('data-price-range')
 
-document
-  .querySelector('.filtrar-bianchi')
-  .addEventListener('click', function () {
-    filtrarCards('Bianchi')
+    // Aplicar los filtros y actualizar los productos
+    aplicarFiltros(marca === null ? 'todas' : marca, rangoPrecio)
   })
-
-document
-  .querySelector('.filtrar-colnago')
-  .addEventListener('click', function () {
-    filtrarCards('Colnago')
-  })
-
-document
-  .querySelector('.filtrar-ridley')
-  .addEventListener('click', function () {
-    filtrarCards('Ridley')
-  })
-document.querySelector('.filtrar-bmc').addEventListener('click', function () {
-  filtrarCards('BMC')
-})
-document.querySelector('.filtrar-bh').addEventListener('click', function () {
-  filtrarCards('BH')
 })
 
-document.querySelector('.filtrar-orbea').addEventListener('click', function () {
-  filtrarCards('Orbea')
+// Añadir eventos para filtros específicos
+document.querySelectorAll('.filtrar-menu li[data-brand]').forEach((li) => {
+  li.addEventListener('click', () =>
+    aplicarFiltro(li.getAttribute('data-brand'))
+  )
 })
-
 document
-  .querySelector('.filtrar-wilier')
-  .addEventListener('click', function () {
-    filtrarCards('Wilier')
+  .querySelectorAll('.filtrar-menu li[data-price-range]')
+  .forEach((li) => {
+    li.addEventListener('click', () =>
+      aplicarFiltros(null, li.getAttribute('data-price-range'))
+    )
   })
 
-function filtrarCards(marca) {
-  const container = document.querySelector('.grid-container')
-  const cards = Array.from(container.querySelectorAll('.card'))
-
-  cards.forEach((card) => {
-    const cardMarca = card.getAttribute('data-brand')
-    if (marca === 'todas' || cardMarca === marca) {
-      card.style.display = ''
-    } else {
-      card.style.display = 'none'
-    }
-  })
+// Función para aplicar el filtro por marca
+function aplicarFiltro(marca) {
+  const productosFiltrados = filtrarProductos(marca)
+  pintarProductos(productosFiltrados)
 }
