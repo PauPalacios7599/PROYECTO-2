@@ -12,7 +12,7 @@ const productos = [
     brand: 'Trek',
     name: 'Trek Checkpoint SLR 6 AXS',
     price: 7799,
-    image: './assets/Imagenes/trek.webp',
+    image: './assets/imagenes/trek.webp',
     link: 'https://www.trekbikes.com/es/es_ES/bicicletas/bicicletas-de-carretera/bicicletas-de-gravel/checkpoint/checkpoint-slr/checkpoint-slr-6-axs/p/35293/?colorCode=yellow_bluedark'
   },
   {
@@ -20,7 +20,7 @@ const productos = [
     brand: 'Megamo',
     name: 'Megamo Silk Grx DI2 12S',
     price: 5299,
-    image: './Assets/Imagenes/Megamo Silk grx di2.png',
+    image: './assets/imagenes/Megamo Silk grx di2.png',
     link: 'https://www.megamo.com/es/bicicletas/gravel/silk/silk-grx-di2-12s-(24)'
   },
   {
@@ -28,7 +28,7 @@ const productos = [
     brand: 'Specialized',
     name: 'Specialized Diverge Expert Carbon',
     price: 6300,
-    image: './Assets/Imagenes/specialized diverge expert carbon.webp',
+    image: './assets/imagenes/specialized diverge expert carbon.webp',
     link: 'https://www.specialized.com/es/es/diverge-expert-carbon/p/221370?color=367650-221370'
   },
   {
@@ -36,7 +36,7 @@ const productos = [
     brand: 'Pinarello',
     name: 'Pinarello Grevil F',
     price: 8280,
-    image: './Assets/Imagenes/Pinarello.jpg',
+    image: './assets/imagenes/Pinarello.jpg',
     link: 'https://www.pinarello.es/bici-2022/b301-iceland-black/'
   },
   {
@@ -44,7 +44,7 @@ const productos = [
     brand: 'BMC',
     name: 'BMC Kaius 01 THREE',
     price: 5999,
-    image: './Assets/Imagenes/bmc.webp',
+    image: './assets/imagenes/bmc.webp',
     link: 'https://es.bmc-switzerland.com/es/collections/kaius-01-gravel-bikes/products/kaius-01-three-bikes-bmc-24-10624-002'
   },
   {
@@ -68,7 +68,7 @@ const productos = [
     brand: 'Wilier',
     name: 'Wilier Jaroon MY2024',
     price: 2000,
-    image: './Assets/Imagenes/wilier.webp',
+    image: './assets/imagenes/wilier.webp',
     link: 'https://www.wilier.com/es/bicicletas/gravel/jaroon-alu-my2024?color=j26-green-grey-1'
   },
   {
@@ -76,7 +76,7 @@ const productos = [
     brand: 'BH',
     name: 'BH Gravel X',
     price: 3500,
-    image: './Assets/Imagenes/BH.jpg',
+    image: './assets/imagenes/BH.jpg',
     link: 'https://www.bhbikes.com/es_ES/bicicletas/carretera/aventura-y-gravel/gravelx-carbon-5-0at-lg505?c=roo'
   },
   {
@@ -84,7 +84,7 @@ const productos = [
     brand: 'Colnago',
     name: 'Colnago C68',
     price: 7701,
-    image: './Assets/Imagenes/Colnago.webp',
+    image: './assets/imagenes/Colnago.webp',
     link: 'https://www.colnago.com/es-es/premium-bikes/c68-gravel-bike'
   },
   {
@@ -92,18 +92,36 @@ const productos = [
     brand: 'Bianchi',
     name: 'Bianchi Arcadex',
     price: 4349,
-    image: './Assets/Imagenes/Bianchi.webp',
+    image: './assets/imagenes/Bianchi.webp',
     link: 'https://www.bianchistore.es/product/arcadex-ekar-13s/'
   }
 ]
 
-// Función para renderizar productos en el contenedor
 function pintarProductos(productosFiltrados) {
+  console.log('Productos a pintar:', productosFiltrados)
   const container = document.querySelector('.grid-container')
-  container.innerHTML = '' // Limpia el contenedor actual
+  container.innerHTML = ''
 
   if (productosFiltrados.length === 0) {
-    container.innerHTML = '<p>No hay productos que mostrar.</p>' // Mensaje en caso de que no haya productos
+    const productosAleatorios = obtenerProductosAleatorios(3)
+    container.innerHTML =
+      '<p>No se encontraron productos según los filtros, aquí tienes algunas sugerencias:</p>'
+    productosAleatorios.forEach((producto) => {
+      const card = document.createElement('article')
+      card.className = 'card'
+      card.setAttribute('data-price', producto.price)
+      card.setAttribute('data-brand', producto.brand)
+
+      card.innerHTML = `
+        <h3>${producto.name}</h3>
+        <img src="${producto.image}" alt="${producto.name}" />
+        <p>${producto.price.toFixed(2)}€</p>
+        <a href="${producto.link}" class="card-button">COMPRAR</a>
+      `
+
+      container.appendChild(card)
+    })
+    return
   }
 
   productosFiltrados.forEach((producto) => {
@@ -123,49 +141,54 @@ function pintarProductos(productosFiltrados) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => pintarProductos(productos))
-
-// Función para filtrar productos por marca
-function filtrarProductos(marca) {
-  return productos.filter((producto) => producto.brand === marca)
+function obtenerProductosAleatorios(cantidad) {
+  const productosMezclados = [...productos].sort(() => 0.5 - Math.random())
+  return productosMezclados.slice(0, cantidad)
 }
 
-// Función para filtrar productos por rango de precio
-function filtrarPorPrecio(rango) {
+function limpiarFiltros() {
+  pintarProductos(productos)
+}
+
+document
+  .querySelector('.limpiar-filtros-boton')
+  .addEventListener('click', limpiarFiltros)
+
+function filtrarPorPrecio(rango, productosFiltrados) {
   if (rango === '0-2500') {
-    return productos.filter(
+    return productosFiltrados.filter(
       (producto) => producto.price >= 0 && producto.price <= 2500
     )
   } else if (rango === '2500-5000') {
-    return productos.filter(
+    return productosFiltrados.filter(
       (producto) => producto.price > 2500 && producto.price <= 5000
     )
   } else if (rango === '5000-7500') {
-    return productos.filter(
+    return productosFiltrados.filter(
       (producto) => producto.price > 5000 && producto.price <= 7500
     )
   } else if (rango === '7500+') {
-    return productos.filter((producto) => producto.price > 7500)
+    return productosFiltrados.filter((producto) => producto.price > 7500)
   }
   return []
 }
 
-// Función para aplicar filtros
 function aplicarFiltros(marca, rangoPrecio) {
   let productosFiltrados = productos
 
   if (marca && marca !== 'todas') {
-    productosFiltrados = filtrarProductos(marca)
+    productosFiltrados = productosFiltrados.filter(
+      (producto) => producto.brand === marca
+    )
   }
 
   if (rangoPrecio) {
-    productosFiltrados = filtrarPorPrecio(rangoPrecio)
+    productosFiltrados = filtrarPorPrecio(rangoPrecio, productosFiltrados)
   }
 
-  pintarProductos(productosFiltrados) // Asegúrate de que esta línea esté presente
+  pintarProductos(productosFiltrados)
 }
 
-// Función para ordenar las tarjetas
 function ordenarCards(orden) {
   const container = document.querySelector('.grid-container')
   const cards = Array.from(container.querySelectorAll('.card'))
@@ -177,77 +200,59 @@ function ordenarCards(orden) {
     return orden === 'asc' ? precioA - precioB : precioB - precioA
   })
 
-  // Reinsertar las tarjetas ordenadas en el contenedor
   cards.forEach((card) => container.appendChild(card))
 }
 
-// Alterna la visibilidad del menú de ordenar
-document.querySelector('.ordenar-boton').addEventListener('click', function () {
+const ordenarBoton = document.querySelector('.ordenar-boton')
+ordenarBoton.addEventListener('click', function () {
   const filtrarMenu = document.querySelector('.filtrar-menu')
   const ordenarMenu = document.querySelector('.ordenar-menu')
 
   if (ordenarMenu.style.display === 'block') {
     ordenarMenu.style.display = 'none'
+    ordenarBoton.setAttribute('aria-expanded', 'false')
   } else {
     ordenarMenu.style.display = 'block'
-    filtrarMenu.style.display = 'none' // Oculta el menú de filtros
+    filtrarMenu.style.display = 'none'
+    ordenarBoton.setAttribute('aria-expanded', 'true')
   }
 })
 
-// Alterna la visibilidad del menú de filtros
-document.querySelector('.filtrar-boton').addEventListener('click', function () {
+const filtrarBoton = document.querySelector('.filtrar-boton')
+filtrarBoton.addEventListener('click', function () {
   const ordenarMenu = document.querySelector('.ordenar-menu')
   const filtrarMenu = document.querySelector('.filtrar-menu')
 
   if (filtrarMenu.style.display === 'block') {
     filtrarMenu.style.display = 'none'
+    filtrarBoton.setAttribute('aria-expanded', 'false')
   } else {
     filtrarMenu.style.display = 'block'
-    ordenarMenu.style.display = 'none' // Oculta el menú de ordenar
+    ordenarMenu.style.display = 'none'
+    filtrarBoton.setAttribute('aria-expanded', 'true')
   }
 })
 
-// Ordenar de menor a mayor
 document
   .querySelector('.ordenar-menor-mayor')
   .addEventListener('click', function () {
     ordenarCards('asc')
   })
 
-// Ordenar de mayor a menor
 document
   .querySelector('.ordenar-mayor-menor')
   .addEventListener('click', function () {
     ordenarCards('desc')
   })
 
-// Añadir eventos de filtrado en los elementos de la lista de filtros
 document.querySelectorAll('.filtrar-menu li').forEach((li) => {
   li.addEventListener('click', function () {
     const marca = this.getAttribute('data-brand')
     const rangoPrecio = this.getAttribute('data-price-range')
 
-    // Aplicar los filtros y actualizar los productos
     aplicarFiltros(marca === null ? 'todas' : marca, rangoPrecio)
   })
 })
 
-// Añadir eventos para filtros específicos
-document.querySelectorAll('.filtrar-menu li[data-brand]').forEach((li) => {
-  li.addEventListener('click', () =>
-    aplicarFiltro(li.getAttribute('data-brand'))
-  )
-})
-document
-  .querySelectorAll('.filtrar-menu li[data-price-range]')
-  .forEach((li) => {
-    li.addEventListener('click', () =>
-      aplicarFiltros(null, li.getAttribute('data-price-range'))
-    )
-  })
-
-// Función para aplicar el filtro por marca
-function aplicarFiltro(marca) {
-  const productosFiltrados = filtrarProductos(marca)
-  pintarProductos(productosFiltrados)
-}
+// Llama a la función para pintar productos al cargar la página
+pintarProductos(productos)
